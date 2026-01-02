@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=New+Amsterdam&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+ /* font para el mensaje principal */
+.home-message{
+  font-family: 'Inter', sans-serif;
+  font-weight: 800; 
+}
+
+button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+ /* fondo principal video home */
+.bg-home-video{
+  background-size:cover;
+  background-position: center;
+  max-height: 100vh;
+}
+
+ /* efecto para el mensaje principal */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1.8s ease-out forwards;
+}
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.new-amsterdam-regular {
+  font-family: "New Amsterdam", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+body {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* efecto para los elementos del bottom navbar del dashboard*/
+@keyframes icon-fill-wipe {
+  0% {
+    clip-path: inset(100% 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes icon-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.icon-fill {
+  animation: icon-fill-wipe 0.25s ease-out forwards;
+}
+
+.icon-pop {
+  animation: icon-pop 0.2s ease-out;
+}
