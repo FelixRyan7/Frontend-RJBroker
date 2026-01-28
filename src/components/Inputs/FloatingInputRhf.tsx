@@ -73,8 +73,8 @@ export default function InputFloatingRHF({
 
         <label
           htmlFor={id}
-          className={`absolute left-2 top-2 text-gray transition-all duration-200 ease-in-out
-            peer-focus:-top-2 peer-focus:-left-1 peer-focus:text-xs peer-focus:text-primary
+          className={`absolute -left-2 -top-2 text-gray transition-all duration-200 ease-in-out
+            peer-focus:-top-2 peer-focus:-left-1 text-xs peer-focus:text-primary
             ${(isFilled || isDateInput || isSelectInput) ? "-top-2 -left-1 text-xs text-gray" : ""}`}
         >
           {label}

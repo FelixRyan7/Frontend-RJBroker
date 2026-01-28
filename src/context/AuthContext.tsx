@@ -1,22 +1,24 @@
 import { createContext, useState, useEffect } from "react";
 import { isTokenExpired } from "../helpers/isTokenExpired";
 import { jwtDecode } from "jwt-decode";
-import type { UserLevel } from "../@types/userProfile";
+import axios from "axios";
+import api from "../api/axios";
 
 interface JwtPayload {
   sub: string;
   userId: number
   roles?: string[];
+  permissions?: string[];
   iat: number;
   exp: number;
 }
 
 
 interface UserContextType {
+  userId: number | null;
   username: string;
   fullName: string | null;
-  userLevel: UserLevel;
-  permissions?: string[]; // opcional
+  permissions: string[];
   hasPersonalData: boolean;
 }
 
@@ -24,6 +26,7 @@ export const AuthContext = createContext<any>(null);
 
 export function AuthProvider({ children }: any) {
   
+  // estado que contiene el token y logica para extraer de localstorage
   const [token, setToken] = useState(() => {
     const saved = localStorage.getItem("jwtToken");
 
@@ -34,30 +37,16 @@ export function AuthProvider({ children }: any) {
     return saved;
   });
 
-  
-  const [user, setUser] = useState<UserContextType>(() => {
-  const savedUser = localStorage.getItem("user"); // opcional, guardar todo el objeto
-  if (savedUser) {
-    return JSON.parse(savedUser);
-  }
-
-  // Valor por defecto
-  const savedHasPersonalData = localStorage.getItem("hasPersonalData");
-  return {
-    userId: null,
+  // estado de user con datos basicos del user autenticado
+  const [user, setUser] = useState<UserContextType | null>({
+    userId: 0,
     username: "",
-    fullName: null,
-    userLevel: "BASIC",
+    fullName: "",
     permissions: [],
-    hasPersonalData: savedHasPersonalData ? JSON.parse(savedHasPersonalData) : false,
-  };
-});
-
-  const [hasPersonalData, setHasPersonalData] = useState(() => {
-    const saved = localStorage.getItem("hasPersonalData");
-    return saved ? JSON.parse(saved) : false; 
+    hasPersonalData: true
   });
 
+  //estado para condicionar la ui en funcion de si esta autenticado el user
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const saved = localStorage.getItem("jwtToken");
     return saved !== null && !isTokenExpired(saved);
@@ -75,24 +64,44 @@ export function AuthProvider({ children }: any) {
   // Logout
   const logout = (reason?: string) => {
     localStorage.removeItem("jwtToken");
-    localStorage.removeItem("user")
     setToken(null);
     setIsAuthenticated(false);
     setLogoutReason(reason || null);
   };
 
-  useEffect(() => {
-  localStorage.setItem("user", JSON.stringify(user));
-}, [user]);
+  // funcion para traer datos actualizados del user
+  const [loadingUser, setLoadingUser] = useState(true);
+
+const refreshUser = async () => {
+  if (!token) return;
+  try {
+    const response = await api.get<UserContextType>("/api/me", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setUser(response.data);
+  } catch (err) {
+    console.error(err);
+    setUser(null);
+  } finally {
+    setLoadingUser(false);
+  }
+};
+
+useEffect(() => {
+  if (token) refreshUser();
+  else setLoadingUser(false);
+}, [token]);
+
+
 
   useEffect(() => {
     if (!token) return;
+    
 
     const payload = jwtDecode<JwtPayload>(token);
     const expirationTime = payload.exp * 1000; 
     const now = Date.now();
     const timeout = expirationTime - now;
-    
     
     if (timeout <= 0) {
       logout("expired");
@@ -102,12 +111,10 @@ export function AuthProvider({ children }: any) {
     
     return () => clearTimeout(timer);
 
-    
-
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ token, isAuthenticated, login, logout, logoutReason, setLogoutReason, hasPersonalData, setHasPersonalData, user, setUser }}>
+    <AuthContext.Provider value={{ token, isAuthenticated, login, logout, logoutReason, setLogoutReason, user, setUser, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -46,20 +46,9 @@ export default function LoginForm({ onSwitchMode }: loginformProps) {
           userId: response.data.userId,
           username: response.data.username,
           fullName: response.data.fullName,
-          userLevel: response.data.userLevel,
           permissions: response.data.permissions,
           hasPersonalData: response.data.hasPersonalData,
         });
-
-        localStorage.setItem("user", JSON.stringify({
-          userId: response.data.userId,
-          username: response.data.username,
-          fullName: response.data.fullName,
-          userLevel: response.data.userLevel,
-          permissions: response.data.permissions,
-          hasPersonalData: response.data.hasPersonalData,
-        }));
-        
         navigate("/dashboard")
         
       } catch (error: any) {

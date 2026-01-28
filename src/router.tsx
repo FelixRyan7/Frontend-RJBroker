@@ -9,6 +9,7 @@ import Favourites from "./views/ProtectedViews/Favourites";
 import Messages from "./views/ProtectedViews/Messages";
 import Search from "./views/ProtectedViews/Search";
 import UserDataForm from "./components/Forms/UserDataForm";
+import AuthWrapper from "./context/AuthWrapper";
 
 export default function router() {
   return (
@@ -17,7 +18,7 @@ export default function router() {
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<LoginPage />} />
         </Route> 
-        <Route element={<UserLayout />}>
+        <Route element={<AuthWrapper><UserLayout /></AuthWrapper>}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/favourites" element={<Favourites />} />

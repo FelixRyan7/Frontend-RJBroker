@@ -52,7 +52,7 @@ export default function Step1Personal({ register, errors, watch, onNext }: Props
 
       <InputFloatingRHF
         id="id_number"
-        label="Nunero identificacion"
+        label="Numero identificacion"
         register={register("idNumber")}
         value={watch("idNumber")}
         error={errors.idNumber?.message}

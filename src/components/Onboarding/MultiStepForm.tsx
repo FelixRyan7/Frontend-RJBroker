@@ -32,7 +32,32 @@ export default function MultiStepForm() {
 
  const navigate = useNavigate();
   
-  const handleNextStep = async () => {
+
+const onSubmit = async (data: OnboardingFormData) => {
+  try{
+    const response = await api.post<UserProfileResponse>("/api/user-profile",data, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+    
+  },})
+    setUser((prev:any) => ({
+      ...prev,
+      fullName: response.data.fullName,
+      hasPersonalData: true,
+    }));
+    navigate("/dashboard")
+
+  } catch(error: any){
+      console.log(error)
+  }
+
+};
+
+const handlePreviousStep = async () => {
+    setCurrentStep(currentStep - 1);
+};
+
+const handleNextStep = async () => {
   const isStep1Valid = await trigger(["fullName", "dateOfBirth", "nationality"]);
  
   if (isStep1Valid && currentStep === 1) {
@@ -51,33 +76,6 @@ export default function MultiStepForm() {
      }
   }
 
-};
-
-const onSubmit = async (data: OnboardingFormData) => {
-  console.log("FORM DATA FINAL:", data);
-  try{
-    const response = await api.post<UserProfileResponse>("/api/user-profile",data, {
-  headers: {
-    Authorization: `Bearer ${token}`,
-    
-  },})
-    setUser((prev:any) => ({
-      ...prev,
-      fullName: response.data.fullName,
-      userLevel: response.data.userLevel,
-      hasPersonalData: true,
-    }));
-    console.log(response.data)
-    navigate("/dashboard")
-
-  } catch(error: any){
-      console.log(error)
-  }
-
-};
-
-const handlePreviousStep = async () => {
-    setCurrentStep(currentStep - 1);
 };
 
   return (
