@@ -6,8 +6,12 @@ import { AuthProvider } from './context/AuthContext'
 import { BrowserRouter } from 'react-router-dom'
 import AuthNavigator from './context/AuthNavigator'
 import { WalletProvider } from './context/WalletContext'
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from './helpers/queryClient'
+
 
 createRoot(document.getElementById('root')!).render(
+  <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <AuthProvider>
         <WalletProvider>
@@ -17,4 +21,5 @@ createRoot(document.getElementById('root')!).render(
         </WalletProvider>
       </AuthProvider>
     </BrowserRouter>
+    </QueryClientProvider>
 )
