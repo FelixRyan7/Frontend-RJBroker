@@ -11,7 +11,7 @@ export default function UserLayout() {
             
             <LoggedHeader />
 
-            <main className="flex-1 my-20 overflow-y-auto p-2">
+            <main className="flex-1 min-h-screen my-20 overflow-y-auto p-2">
                 <Outlet />
             </main>
 
