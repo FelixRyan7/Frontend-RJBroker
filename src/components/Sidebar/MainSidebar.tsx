@@ -21,7 +21,7 @@ export default function MainSidebar({isMenuOpen, setIsMenuOpen}: MainSidebarProp
     <>
     {isMenuOpen && (
     <div
-      className="fixed inset-0 bg-black bg-opacity-30 z-10 transition-opacity"
+      className="fixed inset-0 bg-black bg-opacity-40 transition-opacity z-40"
     ></div>
   )}
     <div
