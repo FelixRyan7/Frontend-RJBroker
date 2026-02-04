@@ -38,3 +38,18 @@ export type AssetSectionProps = {
 };
 
 export type DashboardAssets = Record<AssetType, Asset[]>;
+
+export type FilterPanelType = "country" | "market" | "sector" | null;
+
+export type AssetDetailsDto = {
+  id: number;
+  name: string;
+  symbol: string;
+  isin: string;
+  market: string;
+
+  price: number;
+  open: number;
+  change: number;
+  changePercent: number;
+};
