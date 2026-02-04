@@ -1,6 +1,5 @@
 
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MainSidebar from "../Sidebar/MainSidebar";
 import { WalletContext } from "../../context/WalletContext";
@@ -16,11 +15,11 @@ export default function LoggedHeader() {
     if (!walletContext) {
       throw new Error("WalletContext must be used inside WalletProvider");
     }
-    const { wallet, refreshWallet } = walletContext;
+    const { wallet } = walletContext;
 
   return (
     <>
-    <div className="fixed top-0 left-0 w-full h-20 bg-primary expressive-typography text-secondary">
+    <div className="fixed z-50 top-0 left-0 w-full h-20 bg-primary expressive-typography text-secondary">
         <div className="flex items-center justify-between h-20 p-3">
         <AccountCircleIcon 
           onClick={() => setIsMenuOpen(true)}
