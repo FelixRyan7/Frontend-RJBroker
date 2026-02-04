@@ -2,7 +2,6 @@ import { useContext, useState } from 'react'
 import { getCurrencySymbol } from '../../helpers/currency';
 import { WalletContext } from '../../context/WalletContext';
 import BasicButton from '../Buttons/BasicButton';
-import AnimatedButton from '../Buttons/AnimatedButton';
 import apiWallet from '../../api/axiosWallet';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -31,11 +30,9 @@ export default function DepositMoney({isOpen, onClose}: DepositModalProps) {
       headers: {
         Authorization: `Bearer ${token}`,
       },})
-        console.log(response)
         onClose()
         setAmount("")
         refreshWallet()
-        
       } catch(error: any){
           console.log(error)
       }
@@ -61,7 +58,7 @@ export default function DepositMoney({isOpen, onClose}: DepositModalProps) {
               value={amount}
               placeholder="0.00"
               onChange={(e) => setAmount(e.target.value === "" ? "" : Number(e.target.value))}
-              className="w-32 text-center text-6xl font-bold border-none focus:outline-none"
+              className="w-44 text-center text-6xl font-bold border-none focus:outline-none"
               min={0}
               />
             </div>  
