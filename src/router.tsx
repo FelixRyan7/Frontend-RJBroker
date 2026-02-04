@@ -10,6 +10,8 @@ import Messages from "./views/ProtectedViews/Messages";
 import Search from "./views/ProtectedViews/Search";
 import UserDataForm from "./components/Forms/UserDataForm";
 import AuthWrapper from "./context/AuthWrapper";
+import { AssetsList } from "./views/ProtectedViews/assets/AssetsList";
+import AssetDetails from "./components/Assets/AssetDetails";
 
 export default function router() {
   return (
@@ -24,7 +26,10 @@ export default function router() {
             <Route path="/favourites" element={<Favourites />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/Assets/:type" element={<AssetsList />} />
+            
         </Route> 
+        
         <Route path="/complete-profile" element={<UserDataForm />} />
       </Routes>
   )
