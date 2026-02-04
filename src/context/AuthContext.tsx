@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { isTokenExpired } from "../helpers/isTokenExpired";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
 import api from "../api/axios";
 
 interface JwtPayload {
