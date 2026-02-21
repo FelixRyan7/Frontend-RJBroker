@@ -9,8 +9,7 @@ const apiAsset = axios.create({
 });
 
 apiAsset.interceptors.request.use((config) => {
-  const token = localStorage.getItem("jwtToken"); // o desde cookies / store
-
+  const token = localStorage.getItem("jwtToken");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

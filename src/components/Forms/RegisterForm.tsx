@@ -6,6 +6,7 @@ import type { registerFormType } from '../../@types/loginPage';
 import api from '../../api/axios';
 import type { MessageType } from '../Message/Message';
 import {ToastMessage} from '../Message/Message'
+import { Loader } from '../utils/Loader';
 
 type registerFormProps = {
     onSwitchMode: () => void 
@@ -108,10 +109,10 @@ export default function RegisterForm({onSwitchMode}: registerFormProps) {
     type="password"
     />
     {apiMessageType === "success" ? 
-    (<p className="text-center bg-primary text-secondary cursor-pointer hover:brightness-125 font-bold p-3 rounded-full mt-5" onClick={onSwitchMode}>Iniciar Sesion <span className='ml-2'>{countdown}</span></p>) 
+    (<p className="text-center bg-primary text-secondary cursor-pointer hover:brightness-125 font-bold p-3 rounded-full mt-5" onClick={onSwitchMode}>Iniciando... <span className='ml-2'><Loader isLoading={true} color="white"/></span></p>) 
     : 
     <BasicButton type='submit' disabled={!isFormValid} className='mt-10 w-full md:w-auto'>
-      Enviar
+      Enviar 
     </BasicButton>}
     
     {apiMessageType !== "success" && 

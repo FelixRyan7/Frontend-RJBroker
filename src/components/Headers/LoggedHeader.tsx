@@ -5,6 +5,7 @@ import MainSidebar from "../Sidebar/MainSidebar";
 import { WalletContext } from "../../context/WalletContext";
 import { getCurrencySymbol } from "../../helpers/currency";
 import DepositMoney from "../Modals/DepositMoney";
+import { convertFromUSD, formatCurrency } from "../../helpers/currencyChange";
 
 export default function LoggedHeader() {
     
@@ -15,7 +16,7 @@ export default function LoggedHeader() {
     if (!walletContext) {
       throw new Error("WalletContext must be used inside WalletProvider");
     }
-    const { wallet } = walletContext;
+    const { wallet, netWorth, totalPnlPercent } = walletContext;
 
   return (
     <>
@@ -31,8 +32,12 @@ export default function LoggedHeader() {
          }
         }}
         />
-        <h1  className="text-xl">{getCurrencySymbol(wallet.currency)} {wallet.balance}</h1>
-        <button onClick={() => setIsDepositModalOpen(true)} className="bg-accent px-4 py-1 rounded-full text-dark font-semibold hover:bg-dark hover:text-secondary cursor-pointer transition-all">Depositar</button>
+        <div className="flex gap-2 items-baseline">
+          <h1  className="text-xl">{getCurrencySymbol(wallet.currency)} {netWorth.toFixed(2)} </h1>
+          <h1 className={` font-bold text-white2 rounded-full px-[4px] ${Number(totalPnlPercent.toFixed(2)) < 0 ? 'bg-red' : 'bg-green'}`}>{totalPnlPercent.toFixed(2)}%</h1>
+        </div>
+        
+        <button onClick={() => setIsDepositModalOpen(true)} className="bg-accent px-2 py-1 rounded-full text-dark font-semibold hover:bg-dark hover:text-secondary cursor-pointer transition-all">Deposit</button>
         </div>  
         
     </div>

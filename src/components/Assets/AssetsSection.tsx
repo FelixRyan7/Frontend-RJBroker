@@ -10,13 +10,13 @@ export function AssetsSection({ type, assets, onToggle }: AssetSectionProps) {
   return (
     <section className="mb-6">
         <div
-            className="cursor-pointer flex items-center gap-4 p-2"
+            className="cursor-pointer flex items-center md:gap-4 gap-2 p-2 ml-[7px]"
             onClick={onToggle}
         >
-            <h2 className="font-semibold">{type}S</h2>
+            <h2 className="font-semibold leading-none">{type}</h2>
             <BasicButton
-                className="w-8 h-8 flex items-center justify-center"
-                onClick={() => navigate(`/assets/${type}`)}
+                className="w-4 h-4 p-[9px] flex justify-center"
+                onClick={() => navigate(`/assets/type/${type}`)}
             >
                 <NavigateNextIcon/>
             </BasicButton>

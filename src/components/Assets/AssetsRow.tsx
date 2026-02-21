@@ -2,37 +2,33 @@ import type { AssetRowProps } from "../../@types/assets";
 import { AssetTile } from "./AssetTile";
 import '../../styles/styles.css';
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import AssetDetails from "./AssetDetails";
+
 
 // componente que muestra assets 
 export function AssetsRow({ assets }: AssetRowProps) {
-  const [selectedAssetId, setSelectedAssetId] = useState<number | null>(null);
+
+  const navigate = useNavigate()
+  
   return (
     <div className="mb-10">
-      {!selectedAssetId && (
-        <>
+      <>
         {assets.map(asset => (
-          <div onClick={() => setSelectedAssetId(asset.id)}>
-          <AssetTile
+          <div 
+            onClick={() => navigate(`/asset/${asset.id}`)}
             key={asset.id}
+          >
+          <AssetTile
             symbol={asset.symbol}
             name={asset.name}
             market={asset.market}
+            logo={asset.logo}
+            type={asset.type}
           />
           </div>
+          
         ))
         }
       </>
-      )}
-
-      {selectedAssetId && (
-        <AssetDetails
-          id={selectedAssetId}
-          onBack={() => setSelectedAssetId(null)}
-        />
-      )}
-      
     </div>
   );
 }

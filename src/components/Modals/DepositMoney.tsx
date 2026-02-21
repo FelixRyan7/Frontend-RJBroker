@@ -26,10 +26,7 @@ export default function DepositMoney({isOpen, onClose}: DepositModalProps) {
 
     const onSubmit = async (amount: number) => {
       try{
-        const response = await apiWallet.post<any>("/api/wallet/NewDeposit",{ amount }, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },})
+        const response = await apiWallet.post<any>("/api/wallet/NewDeposit",{ amount })
         onClose()
         setAmount("")
         refreshWallet()

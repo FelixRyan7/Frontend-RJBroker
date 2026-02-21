@@ -27,7 +27,7 @@ export default function BasicButton({
 
   const baseClasses = `
     flex items-center justify-center
-    px-4 md:py-2 py-4 rounded-lg font-semibold
+    p-3  rounded-lg font-semibold
     transition-all duration-300
     hover:brightness-125
     shadow-md hover:shadow-lg

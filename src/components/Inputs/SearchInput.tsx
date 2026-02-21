@@ -6,10 +6,14 @@ interface SerachInputProps{
   Position?: string;
   showCloseButton?: boolean
   onClose?: () => void
+  value?: string;
+  onChange?: (value: string) => void;
+  onSubmit?: (value: string) => void;
+  onFocus?: () => void;
 }
 
 // componente para hacer busqueda de assets en diferentes secciones de la app
-export default function SearchInput({Position = "", showCloseButton = false,  onClose}: SerachInputProps) {
+export default function SearchInput({Position = "", showCloseButton = false,  onClose, value, onChange, onSubmit, onFocus}: SerachInputProps) {
   return (
    
     <>
@@ -22,6 +26,13 @@ export default function SearchInput({Position = "", showCloseButton = false,  on
           type="text"
           placeholder="Search By Name or Symbol..."
           className="bg-transparent w-full placeholder-gray focus:outline-none focus:border-transparent"
+          onChange={(e) => onChange?.(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              onSubmit?.(value || "");
+            }
+          }}
+          onFocus={onFocus}
         />
         
         {showCloseButton && (

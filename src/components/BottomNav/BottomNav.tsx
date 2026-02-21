@@ -20,7 +20,7 @@ export default function BottomNav() {
   const isActive = (path:any) => pathname === path;
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full bg-black/70 backdrop-blur-sm h-20 z-40">
+    <nav className="fixed bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm h-20 z-40">
       
       <div className="grid grid-cols-5 h-full w-full items-center text-white2">
 
@@ -50,7 +50,7 @@ export default function BottomNav() {
         <div className="flex flex-col justify-center items-center">
           <button 
             onClick={() => navigate("/search")}
-            className={`text-white2 ${isActive("/search") ? 'bg-primary/80' : 'bg-white/20'} backdrop-blur-md border border-white/30 h-16 w-16 rounded-full`}
+            className={`text-white2 ${isActive("/search") ? 'bg-primary/80' : 'bg-white/10'} backdrop-blur-md h-14 w-14 mb-1 rounded-full`}
           >
             <SearchIcon />
           </button>

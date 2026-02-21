@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { getCountryName } from "../../helpers/codeToCountry";
 import DoneIcon from '@mui/icons-material/Done';
 

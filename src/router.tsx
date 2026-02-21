@@ -26,7 +26,8 @@ export default function router() {
             <Route path="/favourites" element={<Favourites />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/Assets/:type" element={<AssetsList />} />
+            <Route path="/Assets/type/:type" element={<AssetsList />} />
+            <Route path="/Asset/:id" element={<AssetDetails />} />
             
         </Route> 
         

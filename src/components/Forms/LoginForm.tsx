@@ -41,7 +41,6 @@ export default function LoginForm({ onSwitchMode }: loginformProps) {
         // Realizar la solicitud POST a la API
         const response = await api.post<LoginResponse>("/api/auth/login", loginFormData)
         login(response.data.token)
-        console.log(response.data)
         setUser({
           userId: response.data.userId,
           username: response.data.username,

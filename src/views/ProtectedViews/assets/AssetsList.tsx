@@ -9,6 +9,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import type { Asset, FilterPanelType } from "../../../@types/assets";
 import { MARKET_TO_COUNTRY } from "../../../helpers/marketToCountry";
 import FilterBottomSheet from "../../../components/filters/FilterBottomSheet";
+import { Loader } from "../../../components/utils/Loader";
+import { is } from "zod/v4/locales";
 
 
 const ASSET_TYPES = ["STOCK", "CRYPTO", "ETF", "COMMODITY", "REIT"] as const;
@@ -73,23 +75,23 @@ export function AssetsList() {
           : filteredAssets
       ).map(a => a.market) || []));
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div><Loader isLoading={isLoading} color="primary"/></div>;
   if (isError) return <div>Error loading assets</div>;
   if (!data) return;
 
   return (
   <>
       {/* Search Input animado desde abajo */}
-      <div className="fixed bottom-32 right-8 z-30">
+      <div className={`fixed bottom-32 right-2 z-30`}>
         <div
           className={`
-            relative border-none 
-            border overflow-hidden
-            transition-[width,border-radius,transform,opacity]
-            duration-300 ease-out
+            relative h-[5.2rem]
+            flex items-center
+            overflow-hidden
+            transition-all duration-300 ease-[cubic-bezier(.4,0,.2,1)]
             ${isSearchVisible
-              ? "h-[5.2rem] w-96 rounded-2xl "
-              : "h-20 w-20 rounded-full cursor-pointer shadow-md"}
+              ? "w-96 rounded-[2rem] "
+              : "w-[5.2rem] rounded-full cursor-pointer "}
           `}
         >
         {/* Icono lupa */}
@@ -109,7 +111,7 @@ export function AssetsList() {
         {/* SearchInput */}
         <div
           className={`
-            absolute inset-0 transition-transform duration-300
+            absolute inset-0  transition-transform duration-300
             ${isSearchVisible
               ? "opacity-100 translate-x-0"
               : "opacity-0 translate-x-8 pointer-events-none"}
@@ -125,20 +127,25 @@ export function AssetsList() {
 
 
     </div>
-      <div className="mt-4 relative">
+      <div className={`mt-4 relative`}>
         <h1 className="text-dark font-bold uppercase mb-3 px-3">filters</h1>
         <div className="flex gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar mb-2">
 
-          <span onClick={() => setIsTypeOpen((prev) => !prev)} className="font-bold ml-2 bg-primary text-white2 py-1 px-3 rounded-full lowercase flex-shrink-0 cursor-pointer">{type}S 
-            <ArrowDropDownIcon className={`transition-transform ${isTypeOpen ? "rotate-180" : ""}`}/>
+          <span onClick={() => setIsTypeOpen((prev) => !prev)} className={`font-bold ml-2 bg-primary text-white2 py-1 px-3 rounded-full lowercase flex-shrink-0 cursor-pointer ${isTypeOpen && 'z-[999]' }`}>{type}S 
+            <ArrowDropDownIcon className={`transition-transform ${isTypeOpen ? "rotate-180 " : ""}`}/>
           </span>
           {isTypeOpen && (
-          <ul className="absolute left-4 top-9 mt-2 w-28 bg-white border-white  text-dark font-bold rounded-lg shadow-lg z-10">
+            <>
+            <div
+             className="fixed inset-0 bg-white/30 backdrop-blur-md z-50"
+            onClick={() => setIsTypeOpen(false)}
+           />
+          <ul className="absolute left-3 top-20 mt-2 w-28 bg-white2/80 backdrop-blur-lg border border-white  text-dark font-bold rounded-lg shadow-lg z-[999]">
             {ASSET_TYPES.map((asset) => (
               <li
                 key={asset}
                 onClick={() => {
-                  navigate(`/assets/${asset}`)
+                  navigate(`/assets/type/${asset}`)
                   setIsTypeOpen(false);
                 }}
                 className="px-3 py-2 cursor-pointer hover:bg-white/10 lowercase"
@@ -148,6 +155,7 @@ export function AssetsList() {
             ))
             }
           </ul>
+          </>
           )}
 
           {type !== "CRYPTO" && (

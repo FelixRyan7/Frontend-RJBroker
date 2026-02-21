@@ -76,3 +76,94 @@ body {
   -ms-overflow-style: none;  /* IE 10+ */
   scrollbar-width: none;     /* Firefox */
 }
+
+ /* Definir propiedad para animación */
+  .ai-button{
+      /* rounded-full */
+  background-color: white;
+  font-weight: 600;       /* font-semibold */
+  font-size: 0.875rem;    /* text-sm */
+  display: flex;          /* flex */
+  align-items: center;    /* items-center */
+  justify-content: center;/* justify-center */
+  transition: all 0.3s ease; /* transition-all duration-300 */
+}
+
+/* Hover effects */
+.ai-button:hover {
+  transform: scale(1.05); /* hover:scale-105 */
+  opacity: 0.9;            /* hover:opacity-90 */
+}
+
+.ai-button::before {
+  content: "";
+  position: absolute;
+  inset: -2px; /* hace el borde un poco más grande que el botón */
+  border-radius: inherit;
+  padding: 2px; 
+  background: linear-gradient(var(--rotation), #1B98E0, transparent, #1B98E0);
+  -webkit-mask: 
+  linear-gradient(#fff 0 0) content-box, 
+  linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none; /* no bloquea clics */
+  animation: spin 5s linear infinite;
+}
+@property --rotation{
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+@keyframes spin {
+  0%{
+    --rotation: 0deg;
+  }to{
+    --rotation: 360deg;
+  }
+}
+
+.ai-icon-border {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;       /* Ajusta según el tamaño del icono */
+  position: relative;
+  border-radius: 50%;    /* Hace el contenedor un círculo */
+  width: 40px;           /* Tamaño fijo para que sea perfectamente circular */
+  height: 40px;
+}
+
+.ai-icon-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;    /* También el pseudo-elemento */
+  padding: 2px;
+  background: linear-gradient(var(--rotation), #1B98E0, transparent, #1B98E0);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin 4s linear infinite;
+}
+
+
+
+
+.ai-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(var(--rotation), #1B98E0, transparent, #1B98E0);
+  -webkit-mask: 
+  linear-gradient(#fff 0 0) content-box, 
+  linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin 3s linear infinite;
+}
+
+  

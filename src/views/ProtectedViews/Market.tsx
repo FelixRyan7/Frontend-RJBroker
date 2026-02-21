@@ -5,13 +5,14 @@ import apiAsset from "../../api/axiosAsset";
 import type { DashboardAssets } from "../../@types/assets";
 import { AssetsSection } from "../../components/Assets/AssetsSection";
 import  SearchInput from "../../components/Inputs/SearchInput";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Dashboard() {
 
   const { token, user} = useContext(AuthContext);
   const [assetsByType, setAssetsByType] = useState<DashboardAssets | null>(null);
-  
+   const navigate = useNavigate();
   
 
   const fetchDashboardAssets = async () => {
@@ -45,7 +46,8 @@ export default function Dashboard() {
         <>
         <div className="min-h-screen p-4">
           <div className="">
-            <SearchInput/>
+            <SearchInput
+              onFocus={() => navigate("/search")}/>
           </div>
         <div className="mt-24">
           {assetsByType &&
